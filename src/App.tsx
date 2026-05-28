@@ -710,8 +710,8 @@ export default function App() {
             02
           </div>
 
-          {/* Right Pane: cards panel — scrollable on mobile if needed */}
-          <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto max-h-[calc(100vh-80px)] overflow-y-auto overscroll-contain scrollbar-hide py-2">
+          {/* Right Pane: cards panel — no inner scroll (would break snap!) */}
+          <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto py-2">
             
             {/* Header Title */}
             <div className="mb-4 lg:mb-8">
@@ -837,8 +837,8 @@ export default function App() {
           {/* Top spacer */}
           <div className="h-[72px] sm:h-[88px]" />
 
-          {/* Core Split-Pane Layout — scrollable on mobile */}
-          <div className="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-6 py-2 lg:py-4 overflow-y-auto overscroll-contain scrollbar-hide">
+          {/* Core Split-Pane Layout — no inner overflow (breaks snap-scroll!) */}
+          <div className="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-6 py-2 lg:py-4">
             
             {/* Left Pane: PC Specs Table */}
             <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto">
@@ -893,13 +893,19 @@ export default function App() {
                 </button>
               </div>
 
-              {/* Mobile version — compact horizontal strip */}
-              <div className="lg:hidden mt-3 p-3 rounded-xl border border-red-500/10 bg-red-500/5">
+              {/* Mobile version — always visible, compact strip with BACK TO TOP */}
+              <div className="lg:hidden mt-2 p-3 rounded-xl border border-red-500/10 bg-red-500/5 flex flex-col items-center gap-2.5">
                 <p className="text-[11px] text-white/70 leading-relaxed font-medium text-center">
                   <span className="text-[#ff3b30] font-bold">UPGRADE PLAN:</span>{' '}
-                  แรมแพง ไม่มีตัง! 180Hz โหดแต่เฟรมไม่ถึง — ถ้าถึงเมื่อไหร่{' '}
+                  แรมแพง ไม่มีตัง! 180Hz โหดแต่เฟรมไม่ถึง —{' '}
                   <span className="text-[#ff3b30] font-bold">God Father วงการเกม!</span>
                 </p>
+                <button 
+                  onClick={() => scrollToSection(0)}
+                  className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 bg-red-500/10 border border-[#ff3b30]/30 text-[10px] text-white font-bold tracking-widest transition-all duration-150 cursor-pointer active:scale-[0.96]"
+                >
+                  ↑ BACK TO TOP
+                </button>
               </div>
             </div>
 
