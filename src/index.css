@@ -208,3 +208,63 @@ body {
 .animate-audio-bar-3 {
   animation: audioBar3 0.9s ease-in-out infinite;
 }
+
+/* --- MOBILE RESPONSIVE IMPROVEMENTS --- */
+
+/* Hide scrollbar but keep scrollability (for card panels on mobile) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Reduce bobbing amplitude on mobile — less distracting on small screens */
+@media (max-width: 1023px) {
+  @keyframes bobbing {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-5px) rotate(0.25deg);
+    }
+  }
+  .animate-bobbing {
+    animation: bobbing 6s ease-in-out infinite;
+  }
+}
+
+/* Touch-friendly active states for link cards */
+.hover-glow-red:active {
+  transform: scale(0.97);
+  background: rgba(30, 3, 3, 0.45) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.2), 0 6px 18px rgba(255, 59, 48, 0.15) !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+
+/* Disable heavy hover-lift on touch devices to prevent sticky hover states */
+@media (hover: none) {
+  .hover-glow-red:hover {
+    transform: none;
+    background: rgba(15, 2, 2, 0.25) !important;
+    box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.15), 0 4px 24px rgba(0, 0, 0, 0.5) !important;
+  }
+  .hover-glow-red:hover::before {
+    background: linear-gradient(180deg, rgba(255, 59, 48, 0.5) 0%, rgba(255, 59, 48, 0.15) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 59, 48, 0.15) 90%, rgba(255, 59, 48, 0.5) 100%) !important;
+  }
+}
+
+/* Promote mascot and glow layers to GPU composite for smoother animation */
+.animate-bobbing,
+.animate-blur-fade-up {
+  will-change: transform;
+}
+
+/* Slightly reduce backdrop-filter blur on mobile for GPU performance */
+@media (max-width: 767px) {
+  .liquid-glass {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+}

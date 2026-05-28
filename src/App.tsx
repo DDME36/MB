@@ -282,23 +282,25 @@ export default function App() {
     const rotateOffset = !isMobile && isActive ? mousePos.x * 1.5 : 0;
 
     if (isMobile) {
-      // Mobile positioning (layered centered backdrop, only active model is visible)
+      // Mobile positioning — higher opacity so mascot is clearly visible
       if (isActive) {
         return {
-          opacity: 0.45,
-          transform: 'translate3d(0, 6vh, 0) scale(0.9) rotate(0deg)',
-          filter: 'blur(0px) drop-shadow(0 15px 30px rgba(0,0,0,0.7))',
+          opacity: 0.68,
+          transform: 'translate3d(0, 2vh, 0) scale(0.88) rotate(0deg)',
+          filter: 'blur(0px) drop-shadow(0 10px 25px rgba(0,0,0,0.6))',
           transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, filter 0.8s ease',
+          willChange: 'transform, opacity',
         };
       }
       const isPast = idx < activeIndex;
       return {
         opacity: 0,
         transform: isPast
-          ? 'translate3d(-20vw, 15vh, 0) scale(0.7) rotate(-12deg)'
-          : 'translate3d(20vw, -15vh, 0) scale(0.7) rotate(12deg)',
-        filter: 'blur(15px)',
+          ? 'translate3d(-15vw, 10vh, 0) scale(0.72) rotate(-10deg)'
+          : 'translate3d(15vw, -10vh, 0) scale(0.72) rotate(10deg)',
+        filter: 'blur(12px)',
         transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, filter 0.8s ease',
+        willChange: 'transform, opacity',
       };
     } else {
       // Desktop: Alternating slide paths!
@@ -471,7 +473,7 @@ export default function App() {
               draggable={false}
               style={getModelStyle(idx)}
               onError={() => handleImageError(idx)}
-              className="absolute h-[75%] lg:h-[80%] max-w-[85%] object-contain object-bottom select-none bottom-[10%]"
+              className="absolute h-[60%] sm:h-[70%] lg:h-[80%] max-w-[80%] lg:max-w-[85%] object-contain object-bottom select-none bottom-[12%] sm:bottom-[10%]"
             />
           ))}
         </div>
@@ -624,25 +626,25 @@ export default function App() {
            PAGE 01: INTRODUCTION // ABOUT (h-screen)
            ========================================== */}
         <section className="relative w-full h-screen flex items-center snap-start snap-always px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden max-w-7xl mx-auto justify-start">
-          {/* Giant display watermark scroll-number */}
+          {/* Giant display watermark scroll-number — smaller on mobile to avoid text overlap */}
           <div 
-            className={`font-display text-[15rem] sm:text-[22rem] md:text-[26rem] absolute top-[12vh] leading-none z-1 text-outline-red select-none pointer-events-none -left-4 sm:left-6 ${
+            className={`font-display text-[9rem] sm:text-[18rem] md:text-[26rem] absolute top-[10vh] leading-none z-1 text-outline-red select-none pointer-events-none -left-2 sm:left-6 opacity-60 sm:opacity-100 ${
               activeIndex === 0 ? 'text-outline-red-active' : ''
             }`}
           >
             01
           </div>
 
-          {/* Foreground Intro Text Block */}
-          <div className="relative z-10 max-w-2xl text-left pl-2 sm:pl-6 md:pl-10 lg:pr-28 pointer-events-auto">
+          {/* Foreground Intro Text Block — higher z-index and slightly raised on mobile so mascot stays behind */}
+          <div className="relative z-10 max-w-2xl text-left pl-2 sm:pl-6 md:pl-10 lg:pr-28 pointer-events-auto mt-[-4vh] sm:mt-0">
             {/* Cyber badge */}
-            <div className="inline-flex items-center gap-2 rounded-md px-3 py-1 bg-red-500/10 border border-red-500/25 text-[#ff3b30] text-[10px] sm:text-xs font-mono font-black tracking-widest mb-4 shadow-[0_0_15px_rgba(255,59,48,0.1)] uppercase animate-pulse">
+            <div className="inline-flex items-center gap-2 rounded-md px-3 py-1 bg-red-500/10 border border-red-500/25 text-[#ff3b30] text-[10px] sm:text-xs font-mono font-black tracking-widest mb-3 sm:mb-4 shadow-[0_0_15px_rgba(255,59,48,0.1)] uppercase animate-pulse">
               <span className="w-1.5 h-1.5 rounded-full bg-[#ff3b30]" />
               CORE SYSTEM ONLINE
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-[1.05] tracking-tight mb-3 text-white uppercase font-sans">
+            <h1 className="text-3xl sm:text-6xl md:text-7xl font-black leading-[1.05] tracking-tight mb-2 sm:mb-3 text-white uppercase font-sans">
               MIGHTYBIT
               <span className="block mt-1 bg-gradient-to-r from-[#ff3b30] via-[#ff5252] to-[#ff4b2b] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_10px_rgba(255,59,48,0.25)]">
                 ABOUT DOME
@@ -650,40 +652,44 @@ export default function App() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base font-bold uppercase tracking-widest text-[#ff5252]/90 mb-5 pl-1 font-sans">
+            <p className="text-xs sm:text-base font-bold uppercase tracking-widest text-[#ff5252]/90 mb-3 sm:mb-5 pl-1 font-sans">
               &gt; สวัสดีครับ ผมชื่อโดม
             </p>
 
-            {/* Narrative text */}
-            <p className="text-sm sm:text-base md:text-lg text-white/80 mb-8 leading-relaxed max-w-xl font-medium">
+            {/* Narrative text — hidden on very small screens to keep layout clean */}
+            <p className="hidden sm:block text-sm sm:text-base md:text-lg text-white/80 mb-6 sm:mb-8 leading-relaxed max-w-xl font-medium">
               สิ่งที่คิดอยู่บ่อยๆ คือ เล่นเกมแพ้ตลอด... เป็นที่เกมหรือเป็นที่กูเนี่ย? <br />
               และผมชอบสีแดงเป็นชีวิตจิตใจ เพราะแม่สอนไว้ตั้งแต่เด็กว่า <br />
-              <span className="text-[#ff3b30] font-extrabold drop-shadow-[0_0_8px_rgba(255,59,48,0.4)]">"จะถูกจะแพง ก็แดงไว้ก่อน!"</span>
+              <span className="text-[#ff3b30] font-extrabold drop-shadow-[0_0_8px_rgba(255,59,48,0.4)]">&quot;จะถูกจะแพง ก็แดงไว้ก่อน!&quot;</span>
+            </p>
+            {/* Short version for tiny screens */}
+            <p className="sm:hidden text-xs text-white/75 mb-5 leading-relaxed max-w-[260px] font-medium">
+              เล่นเกมแพ้ตลอด... <span className="text-[#ff3b30] font-extrabold">&quot;จะถูกจะแพง ก็แดงไว้ก่อน!&quot;</span>
             </p>
 
             {/* Action buttons */}
-            <div className="flex flex-wrap gap-4 items-center pl-1">
+            <div className="flex flex-wrap gap-3 sm:gap-4 items-center pl-1">
               <button 
                 onClick={() => scrollToSection(1)}
-                className="flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#ff3b30] to-[#ff5252] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-full px-7 sm:px-9 py-3 sm:py-3.5 cursor-pointer hover:shadow-[0_0_25px_rgba(255,59,48,0.6)] hover:scale-[1.02] transition-all duration-200"
+                className="flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#ff3b30] to-[#ff5252] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-full px-6 sm:px-9 py-2.5 sm:py-3.5 cursor-pointer hover:shadow-[0_0_25px_rgba(255,59,48,0.6)] hover:scale-[1.02] active:scale-[0.97] transition-all duration-200"
               >
-                <Play className="w-[15px] h-[15px] fill-white" strokeWidth={2.2} />
+                <Play className="w-[14px] h-[14px] fill-white" strokeWidth={2.2} />
                 Connect Portal
               </button>
               
               <button 
                 onClick={() => scrollToSection(2)}
-                className="flex items-center justify-center rounded-full px-6 sm:px-8 py-3 sm:py-3.5 liquid-glass text-white border border-[#ff3b30]/30 text-xs sm:text-sm font-semibold uppercase tracking-wider cursor-pointer hover:scale-[1.03] hover:bg-red-500/10 hover:shadow-[0_0_15px_rgba(255,59,48,0.3)] transition-all duration-150"
+                className="flex items-center justify-center rounded-full px-5 sm:px-8 py-2.5 sm:py-3.5 liquid-glass text-white border border-[#ff3b30]/30 text-xs sm:text-sm font-semibold uppercase tracking-wider cursor-pointer hover:scale-[1.03] active:scale-[0.97] hover:bg-red-500/10 hover:shadow-[0_0_15px_rgba(255,59,48,0.3)] transition-all duration-150"
               >
                 Check Rig Specs
               </button>
             </div>
           </div>
 
-          {/* PULSING SCROLL DOWN INDICATOR */}
+          {/* PULSING SCROLL DOWN INDICATOR — safe area aware */}
           <div 
             onClick={() => scrollToSection(1)}
-            className="absolute bottom-6 left-[50%] -translate-x-[50%] z-20 flex flex-col items-center gap-1 cursor-pointer select-none"
+            className="absolute bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] left-[50%] -translate-x-[50%] z-20 flex flex-col items-center gap-1 cursor-pointer select-none"
           >
             <span className="text-[9px] uppercase font-bold tracking-[0.25em] text-white/40">SCROLL DOWN</span>
             <ChevronDown className="w-4 h-4 text-red-500/80 animate-double-pulse" strokeWidth={2.5} />
@@ -693,44 +699,45 @@ export default function App() {
         {/* ==========================================
            PAGE 02: PORTAL // LINKTREE (h-screen)
            ========================================== */}
+        {/* PAGE 02: PORTAL — flex layout, cards scroll on small screens */}
         <section className="relative w-full h-screen flex items-center snap-start snap-always px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden max-w-7xl mx-auto justify-end">
-          {/* Giant display watermark scroll-number */}
+          {/* Giant display watermark — smaller on mobile */}
           <div 
-            className={`font-display text-[15rem] sm:text-[22rem] md:text-[26rem] absolute top-[12vh] leading-none z-1 text-outline-red select-none pointer-events-none -right-4 sm:right-6 ${
+            className={`font-display text-[9rem] sm:text-[18rem] md:text-[26rem] absolute top-[10vh] leading-none z-1 text-outline-red select-none pointer-events-none -right-2 sm:right-6 opacity-60 sm:opacity-100 ${
               activeIndex === 1 ? 'text-outline-red-active' : ''
             }`}
           >
             02
           </div>
 
-          {/* Right Pane: GORGEOUS CYBER TERMINAL DIRECTORY CONTROL PANEL */}
-          <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto">
+          {/* Right Pane: cards panel — scrollable on mobile if needed */}
+          <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto max-h-[calc(100vh-80px)] overflow-y-auto overscroll-contain scrollbar-hide py-2">
             
-            {/* Header Title inside Panel */}
-            <div className="mb-6 lg:mb-8">
-              <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-sans">
+            {/* Header Title */}
+            <div className="mb-4 lg:mb-8">
+              <h2 className="text-2xl sm:text-5xl font-black uppercase tracking-tight text-white font-sans">
                 CONNECT <span className="text-[#ff3b30] drop-shadow-[0_0_8px_rgba(255,59,48,0.4)]">PORTAL</span>
               </h2>
-              <p className="text-xs sm:text-sm text-white/80 leading-relaxed mt-3 max-w-md mx-auto lg:mx-0 font-medium">
+              <p className="hidden sm:block text-xs sm:text-sm text-white/80 leading-relaxed mt-3 max-w-md mx-auto lg:mx-0 font-medium">
                 ช่องทางการติดตามโซเชียลมีเดีย อัปเดตผลงานวิดีโอ ไลฟ์สไตล์ และผลงานเพลงของผมได้จากที่นี่เลยครับ!
               </p>
             </div>
 
-            {/* Grid holding ultra-premium, compact terminal link cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+            {/* Card grid — compact on mobile, 2-col on sm+ */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-4 w-full">
               
               {/* YouTube Card */}
               <a
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-youtube no-underline text-white cursor-pointer"
+                className="flex items-center justify-between p-3 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-youtube no-underline text-white cursor-pointer active:scale-[0.97] active:bg-white/8 transition-transform duration-150"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center bg-black/65 border border-[#ff0000]/40 rounded-lg text-[#ff0000] shadow-[0_0_12px_rgba(255,0,0,0.25)]">
-                    <Youtube className="w-5 h-5" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-black/65 border border-[#ff0000]/40 rounded-lg text-[#ff0000] shadow-[0_0_12px_rgba(255,0,0,0.25)]">
+                    <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <span className="font-black tracking-widest uppercase text-sm sm:text-base text-white font-sans">YouTube</span>
+                  <span className="font-black tracking-widest uppercase text-sm text-white font-sans">YouTube</span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-white/50" strokeWidth={2.25} />
               </a>
@@ -740,13 +747,13 @@ export default function App() {
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-tiktok no-underline text-white cursor-pointer"
+                className="flex items-center justify-between p-3 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-tiktok no-underline text-white cursor-pointer active:scale-[0.97] active:bg-white/8 transition-transform duration-150"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center bg-black/65 border border-[#00f2fe]/40 rounded-lg text-[#00f2fe] shadow-[0_0_12px_rgba(0,242,254,0.2)]">
-                    <Video className="w-5 h-5" strokeWidth={2} />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-black/65 border border-[#00f2fe]/40 rounded-lg text-[#00f2fe] shadow-[0_0_12px_rgba(0,242,254,0.2)]">
+                    <Video className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
                   </div>
-                  <span className="font-black tracking-widest uppercase text-sm sm:text-base text-white font-sans">TikTok</span>
+                  <span className="font-black tracking-widest uppercase text-sm text-white font-sans">TikTok</span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-white/50" strokeWidth={2.25} />
               </a>
@@ -756,13 +763,13 @@ export default function App() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-instagram no-underline text-white cursor-pointer"
+                className="flex items-center justify-between p-3 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-instagram no-underline text-white cursor-pointer active:scale-[0.97] active:bg-white/8 transition-transform duration-150"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center bg-black/65 border border-[#e4405f]/40 rounded-lg text-[#e4405f] shadow-[0_0_12px_rgba(228,64,95,0.2)]">
-                    <Instagram className="w-5 h-5" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-black/65 border border-[#e4405f]/40 rounded-lg text-[#e4405f] shadow-[0_0_12px_rgba(228,64,95,0.2)]">
+                    <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <span className="font-black tracking-widest uppercase text-sm sm:text-base text-white font-sans">Instagram</span>
+                  <span className="font-black tracking-widest uppercase text-sm text-white font-sans">Instagram</span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-white/50" strokeWidth={2.25} />
               </a>
@@ -772,39 +779,39 @@ export default function App() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-facebook no-underline text-white cursor-pointer"
+                className="flex items-center justify-between p-3 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-facebook no-underline text-white cursor-pointer active:scale-[0.97] active:bg-white/8 transition-transform duration-150"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center bg-black/65 border border-[#1877f2]/40 rounded-lg text-[#1877f2] shadow-[0_0_12px_rgba(24,119,242,0.2)]">
-                    <Facebook className="w-5 h-5" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-black/65 border border-[#1877f2]/40 rounded-lg text-[#1877f2] shadow-[0_0_12px_rgba(24,119,242,0.2)]">
+                    <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <span className="font-black tracking-widest uppercase text-sm sm:text-base text-white font-sans">Facebook</span>
+                  <span className="font-black tracking-widest uppercase text-sm text-white font-sans">Facebook</span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-white/50" strokeWidth={2.25} />
               </a>
 
-              {/* SoundCloud Card */}
+              {/* SoundCloud Card — full width */}
               <a
                 href="https://soundcloud.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-4 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-soundcloud no-underline text-white cursor-pointer sm:col-span-2"
+                className="flex items-center justify-between p-3 sm:p-5 rounded-xl liquid-glass hover-glow-red hover-glow-red-soundcloud no-underline text-white cursor-pointer active:scale-[0.97] active:bg-white/8 transition-transform duration-150 col-span-1 sm:col-span-2"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 flex items-center justify-center bg-black/65 border border-[#ff5500]/40 rounded-lg text-[#ff5500] shadow-[0_0_12px_rgba(255,85,0,0.2)]">
-                    <Soundcloud className="w-5 h-5" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-black/65 border border-[#ff5500]/40 rounded-lg text-[#ff5500] shadow-[0_0_12px_rgba(255,85,0,0.2)]">
+                    <Soundcloud className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <span className="font-black tracking-widest uppercase text-sm sm:text-base text-white font-sans">SoundCloud</span>
+                  <span className="font-black tracking-widest uppercase text-sm text-white font-sans">SoundCloud</span>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-white/50" strokeWidth={2.25} />
               </a>
             </div>
           </div>
 
-          {/* PULSING SCROLL DOWN INDICATOR */}
+          {/* PULSING SCROLL DOWN INDICATOR — safe area aware */}
           <div 
             onClick={() => scrollToSection(2)}
-            className="absolute bottom-6 left-[50%] -translate-x-[50%] z-20 flex flex-col items-center gap-1 cursor-pointer select-none"
+            className="absolute bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] left-[50%] -translate-x-[50%] z-20 flex flex-col items-center gap-1 cursor-pointer select-none"
           >
             <span className="text-[9px] uppercase font-bold tracking-[0.25em] text-white/40">SCROLL DOWN</span>
             <ChevronDown className="w-4 h-4 text-red-500/80 animate-double-pulse" strokeWidth={2.5} />
@@ -818,45 +825,45 @@ export default function App() {
           id="specs-section"
           className="relative w-full h-screen flex flex-col justify-between snap-start snap-always px-4 sm:px-6 md:px-12 lg:px-24 overflow-hidden bg-gradient-to-b from-black/60 via-[#0c0101]/80 to-black/85 border-t border-red-500/10"
         >
-          {/* Giant display watermark scroll-number */}
+          {/* Giant display watermark — smaller on mobile */}
           <div 
-            className={`font-display text-[15rem] sm:text-[22rem] md:text-[26rem] absolute top-[12vh] leading-none z-0 select-none pointer-events-none -left-4 sm:left-6 transition-all duration-500 ${
+            className={`font-display text-[9rem] sm:text-[18rem] md:text-[26rem] absolute top-[10vh] leading-none z-0 select-none pointer-events-none -left-2 sm:left-6 opacity-60 sm:opacity-100 transition-all duration-500 ${
               activeIndex === 2 ? 'text-outline-red-darkbg-active text-outline-red-darkbg' : 'text-outline-red-darkbg'
             }`}
           >
             03
           </div>
 
-          {/* Top spacer to align nicely under fixed navbar */}
-          <div className="h-[76px] sm:h-[88px]" />
+          {/* Top spacer */}
+          <div className="h-[72px] sm:h-[88px]" />
 
-          {/* Core Split-Pane Layout PC Specs Dashboard */}
-          <div className="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 py-4">
+          {/* Core Split-Pane Layout — scrollable on mobile */}
+          <div className="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-6 py-2 lg:py-4 overflow-y-auto overscroll-contain scrollbar-hide">
             
-            {/* Left Pane: PC Specs Table (Mascot sits on the Right at z-3) */}
+            {/* Left Pane: PC Specs Table */}
             <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto">
               
               {/* Header Title */}
-              <div className="mb-6">
-                <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-none font-sans">
-                  MIGHTYBIT <span className="text-[#ff3b30] block lg:inline lg:mt-0 mt-1.5 drop-shadow-[0_0_8px_rgba(255,59,48,0.4)]">SYSTEM RIG</span>
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-2xl sm:text-5xl font-black uppercase tracking-tight text-white leading-none font-sans">
+                  MIGHTYBIT <span className="text-[#ff3b30] block lg:inline lg:mt-0 mt-1 drop-shadow-[0_0_8px_rgba(255,59,48,0.4)]">SYSTEM RIG</span>
                 </h2>
-                <p className="text-xs sm:text-sm text-white/80 leading-relaxed mt-3 max-w-md mx-auto lg:mx-0 font-medium">
+                <p className="text-xs sm:text-sm text-white/80 leading-relaxed mt-2 sm:mt-3 max-w-md mx-auto lg:mx-0 font-medium">
                   สเปคคอมกากๆ ของผม เอาไว้ใช้ทำงานทั่วไปกับเล่นเกมไปวันๆ ครับ
                 </p>
               </div>
 
               {/* Specifications List */}
-              <div className="flex flex-col gap-2.5 text-xs sm:text-sm">
+              <div className="flex flex-col gap-2 sm:gap-2.5 text-xs sm:text-sm">
                 {PC_SPECS.map((spec, index) => (
                   <div 
                     key={`spec-row-${index}`}
-                    className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-2.5 px-3.5 rounded-lg border border-red-500/10 bg-red-500/5 hover:bg-red-500/10 transition-all duration-150 group"
+                    className="flex flex-row justify-between items-center py-2 sm:py-2.5 px-3 sm:px-3.5 rounded-lg border border-red-500/10 bg-red-500/5 active:bg-red-500/10 hover:bg-red-500/10 transition-all duration-150 group"
                   >
-                    <span className="font-extrabold text-[#ff3b30] min-w-[110px] uppercase tracking-wider mb-0.5 sm:mb-0 group-hover:scale-[1.02] transition-transform text-left">
+                    <span className="font-extrabold text-[#ff3b30] min-w-[70px] sm:min-w-[110px] uppercase tracking-wider group-hover:scale-[1.02] transition-transform text-left">
                       &gt; {spec.label}:
                     </span>
-                    <span className="text-white text-left font-semibold">
+                    <span className="text-white text-right sm:text-left font-semibold text-[11px] sm:text-sm">
                       {spec.value}
                     </span>
                   </div>
@@ -864,32 +871,42 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Pane on Desktop: Upgrade plans and funny complaints */}
-            <div className="relative z-10 hidden lg:flex flex-col items-end w-[45%] text-right pr-6 self-center">
-              <h3 className="text-xl font-black uppercase tracking-wider text-[#ff3b30] drop-shadow-[0_0_8px_rgba(255,59,48,0.5)] mb-3">
-                UPGRADE PLAN
-              </h3>
-              
-              <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-md mb-5 font-medium">
-                คอมสเปคนี้มีแผนกำลังจะเปลี่ยนเร็วๆ นี้ครับ... <br />
-                แต่แรมดันเสือกแพงขึ้นอีก ชิบหายเลยทีนี้ ไม่มีตังแล้วครับ! <br /><br />
-                สเปคคอมกากแต่จอคอมโหด 180Hz <br />
-                ดันเฟรมไม่ถึงกระตุกตามาก แต่ถ้าถึงเมื่อไหร่ <br />
-                บอกเลย God Father วงการเกมเลยแหละ!
-              </p>
-              
-              <button 
-                onClick={() => scrollToSection(0)}
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 border border-[#ff3b30]/30 hover:border-[#ff3b30] text-xs text-white font-bold tracking-widest transition-all duration-150 cursor-pointer"
-              >
-                BACK TO TOP
-              </button>
+            {/* Upgrade Plan — desktop: right pane | mobile: shown below specs as compact strip */}
+            <div className="relative z-10 w-full lg:w-[45%] lg:flex-col lg:items-end lg:text-right lg:pr-6 lg:self-center">
+              {/* Desktop version */}
+              <div className="hidden lg:flex flex-col items-end">
+                <h3 className="text-xl font-black uppercase tracking-wider text-[#ff3b30] drop-shadow-[0_0_8px_rgba(255,59,48,0.5)] mb-3">
+                  UPGRADE PLAN
+                </h3>
+                <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-md mb-5 font-medium">
+                  คอมสเปคนี้มีแผนกำลังจะเปลี่ยนเร็วๆ นี้ครับ... <br />
+                  แต่แรมดันเสือกแพงขึ้นอีก ชิบหายเลยทีนี้ ไม่มีตังแล้วครับ! <br /><br />
+                  สเปคคอมกากแต่จอคอมโหด 180Hz <br />
+                  ดันเฟรมไม่ถึงกระตุกตามาก แต่ถ้าถึงเมื่อไหร่ <br />
+                  บอกเลย God Father วงการเกมเลยแหละ!
+                </p>
+                <button 
+                  onClick={() => scrollToSection(0)}
+                  className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 border border-[#ff3b30]/30 hover:border-[#ff3b30] text-xs text-white font-bold tracking-widest transition-all duration-150 cursor-pointer"
+                >
+                  BACK TO TOP
+                </button>
+              </div>
+
+              {/* Mobile version — compact horizontal strip */}
+              <div className="lg:hidden mt-3 p-3 rounded-xl border border-red-500/10 bg-red-500/5">
+                <p className="text-[11px] text-white/70 leading-relaxed font-medium text-center">
+                  <span className="text-[#ff3b30] font-bold">UPGRADE PLAN:</span>{' '}
+                  แรมแพง ไม่มีตัง! 180Hz โหดแต่เฟรมไม่ถึง — ถ้าถึงเมื่อไหร่{' '}
+                  <span className="text-[#ff3b30] font-bold">God Father วงการเกม!</span>
+                </p>
+              </div>
             </div>
 
           </div>
 
-          {/* Footer - Sits exactly at the bottom of h-screen */}
-          <footer className="w-full max-w-7xl mx-auto py-6 sm:py-8 border-t border-red-500/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+          {/* Footer */}
+          <footer className="w-full max-w-7xl mx-auto py-4 sm:py-6 border-t border-red-500/10 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
             <div className="text-center sm:text-left">
               <div className="text-xs font-black uppercase tracking-[0.25em] mb-1 text-white">
                 MIGHTY<span className="text-[#ff3b30]">BIT</span>
@@ -897,9 +914,9 @@ export default function App() {
               <p className="text-[8px] text-white/45 uppercase tracking-widest pl-0.5">&copy; 2026 MIGHTYBIT MEDIA GROUP. ALL RIGHTS RESERVED.</p>
             </div>
 
-            <div className="flex items-center gap-6">
-              <a href="#" className="text-[10px] text-white/60 hover:text-white transition-colors duration-200 no-underline font-semibold uppercase tracking-wider">PRIVACY POLICY</a>
-              <a href="#" className="text-[10px] text-white/60 hover:text-white transition-colors duration-200 no-underline font-semibold uppercase tracking-wider">TERMS OF SERVICE</a>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <a href="#" className="text-[10px] text-white/60 hover:text-white active:text-white transition-colors duration-200 no-underline font-semibold uppercase tracking-wider">PRIVACY POLICY</a>
+              <a href="#" className="text-[10px] text-white/60 hover:text-white active:text-white transition-colors duration-200 no-underline font-semibold uppercase tracking-wider">TERMS OF SERVICE</a>
             </div>
           </footer>
         </section>
