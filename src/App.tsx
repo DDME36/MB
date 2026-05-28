@@ -840,7 +840,7 @@ export default function App() {
           {/* Core Split-Pane Layout — no inner overflow (breaks snap-scroll!) */}
           <div className="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-6 py-2 lg:py-4">
             
-            {/* Left Pane: PC Specs Table */}
+            {/* Left Pane: PC Specs Table + Mobile Upgrade Plan */}
             <div className="relative z-10 w-full lg:w-[50%] flex flex-col justify-center text-center lg:text-left pr-0 lg:pr-6 pointer-events-auto">
               
               {/* Header Title */}
@@ -869,44 +869,45 @@ export default function App() {
                   </div>
                 ))}
               </div>
+
+              {/* Mobile-only: Upgrade Plan flows directly below specs — no gap */}
+              <div className="lg:hidden mt-4 pt-4 border-t border-red-500/10">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4 gap-2 text-left">
+                  <div className="flex-1">
+                    <span className="block text-[10px] font-black uppercase tracking-widest text-[#ff3b30] mb-1.5">UPGRADE PLAN</span>
+                    <p className="text-[11px] text-white/75 leading-relaxed font-medium">
+                      คอมสเปคนี้มีแผนจะเปลี่ยนเร็วๆ แต่แรมดันเสือกแพงขึ้นอีก ชิบหายเลยทีนี้ ไม่มีตังแล้ว! จอโหด 180Hz แต่เฟรมไม่ถึงกระตุกตา —{' '}
+                      <span className="text-[#ff3b30] font-bold">ถ้าถึงวันไหน God Father วงการเกมเลย!</span>
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => scrollToSection(0)}
+                    className="self-start sm:self-center shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 bg-red-500/10 border border-[#ff3b30]/30 text-[10px] text-white font-bold tracking-widest transition-all duration-150 cursor-pointer active:scale-[0.96] whitespace-nowrap"
+                  >
+                    ↑ BACK TO TOP
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* Upgrade Plan — desktop: right pane | mobile: shown below specs as compact strip */}
-            <div className="relative z-10 w-full lg:w-[45%] lg:flex-col lg:items-end lg:text-right lg:pr-6 lg:self-center">
-              {/* Desktop version */}
-              <div className="hidden lg:flex flex-col items-end">
-                <h3 className="text-xl font-black uppercase tracking-wider text-[#ff3b30] drop-shadow-[0_0_8px_rgba(255,59,48,0.5)] mb-3">
-                  UPGRADE PLAN
-                </h3>
-                <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-md mb-5 font-medium">
-                  คอมสเปคนี้มีแผนกำลังจะเปลี่ยนเร็วๆ นี้ครับ... <br />
-                  แต่แรมดันเสือกแพงขึ้นอีก ชิบหายเลยทีนี้ ไม่มีตังแล้วครับ! <br /><br />
-                  สเปคคอมกากแต่จอคอมโหด 180Hz <br />
-                  ดันเฟรมไม่ถึงกระตุกตามาก แต่ถ้าถึงเมื่อไหร่ <br />
-                  บอกเลย God Father วงการเกมเลยแหละ!
-                </p>
-                <button 
-                  onClick={() => scrollToSection(0)}
-                  className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 border border-[#ff3b30]/30 hover:border-[#ff3b30] text-xs text-white font-bold tracking-widest transition-all duration-150 cursor-pointer"
-                >
-                  BACK TO TOP
-                </button>
-              </div>
-
-              {/* Mobile version — always visible, compact strip with BACK TO TOP */}
-              <div className="lg:hidden mt-2 p-3 rounded-xl border border-red-500/10 bg-red-500/5 flex flex-col items-center gap-2.5">
-                <p className="text-[11px] text-white/70 leading-relaxed font-medium text-center">
-                  <span className="text-[#ff3b30] font-bold">UPGRADE PLAN:</span>{' '}
-                  แรมแพง ไม่มีตัง! 180Hz โหดแต่เฟรมไม่ถึง —{' '}
-                  <span className="text-[#ff3b30] font-bold">God Father วงการเกม!</span>
-                </p>
-                <button 
-                  onClick={() => scrollToSection(0)}
-                  className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 bg-red-500/10 border border-[#ff3b30]/30 text-[10px] text-white font-bold tracking-widest transition-all duration-150 cursor-pointer active:scale-[0.96]"
-                >
-                  ↑ BACK TO TOP
-                </button>
-              </div>
+            {/* Desktop-only Right Pane: Upgrade Plan */}
+            <div className="hidden lg:flex relative z-10 w-[45%] flex-col items-end text-right pr-6 self-center">
+              <h3 className="text-xl font-black uppercase tracking-wider text-[#ff3b30] drop-shadow-[0_0_8px_rgba(255,59,48,0.5)] mb-3">
+                UPGRADE PLAN
+              </h3>
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-md mb-5 font-medium">
+                คอมสเปคนี้มีแผนกำลังจะเปลี่ยนเร็วๆ นี้ครับ... <br />
+                แต่แรมดันเสือกแพงขึ้นอีก ชิบหายเลยทีนี้ ไม่มีตังแล้วครับ! <br /><br />
+                สเปคคอมกากแต่จอคอมโหด 180Hz <br />
+                ดันเฟรมไม่ถึงกระตุกตามาก แต่ถ้าถึงเมื่อไหร่ <br />
+                บอกเลย God Father วงการเกมเลยแหละ!
+              </p>
+              <button 
+                onClick={() => scrollToSection(0)}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 border border-[#ff3b30]/30 hover:border-[#ff3b30] text-xs text-white font-bold tracking-widest transition-all duration-150 cursor-pointer"
+              >
+                BACK TO TOP
+              </button>
             </div>
 
           </div>
