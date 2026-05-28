@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Prompt', 'Inter', sans-serif;
+  --font-display: 'Anton', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: #fff;
+  scroll-behavior: smooth;
+}
+
+/* Custom Webkit scrollbar for premium cyber-red theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 59, 48, 0.25);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff3b30;
+  box-shadow: 0 0 10px #ff3b30;
+}
+
+/* --- REUSABLE LIQUID GLASS STYLING --- */
+.liquid-glass {
+  background: rgba(15, 2, 2, 0.25) !important;
+  background-blend-mode: luminosity !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: none !important;
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.15), 0 4px 24px rgba(0, 0, 0, 0.5) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pseudo-element for custom glowing gradient borders with red tints */
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg, rgba(255, 59, 48, 0.5) 0%, rgba(255, 59, 48, 0.15) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0) 75%, rgba(255, 59, 48, 0.15) 90%, rgba(255, 59, 48, 0.5) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* --- CYBER RED GLOW EFFECTS FOR LINKTREE CARDS --- */
+.hover-glow-red {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.hover-glow-red:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: rgba(30, 3, 3, 0.5) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.35), 0 15px 35px rgba(255, 59, 48, 0.25) !important;
+}
+.hover-glow-red:hover::before {
+  background: linear-gradient(180deg, #ff3b30 0%, rgba(255, 59, 48, 0.4) 100%) !important;
+}
+
+/* Specific Cyber-Red Highlights for Each Brand Card */
+.hover-glow-red-tiktok:hover {
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.35), 0 15px 35px rgba(0, 242, 254, 0.15), 0 15px 45px rgba(255, 59, 48, 0.2) !important;
+}
+.hover-glow-red-tiktok:hover::before {
+  background: linear-gradient(135deg, #ff3b30 0%, #00f2fe 100%) !important;
+}
+
+.hover-glow-red-instagram:hover {
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.35), 0 15px 35px rgba(228, 64, 95, 0.15), 0 15px 45px rgba(255, 59, 48, 0.2) !important;
+}
+.hover-glow-red-instagram:hover::before {
+  background: linear-gradient(135deg, #ff3b30 0%, #e4405f 100%) !important;
+}
+
+.hover-glow-red-facebook:hover {
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.35), 0 15px 35px rgba(24, 119, 242, 0.15), 0 15px 45px rgba(255, 59, 48, 0.2) !important;
+}
+.hover-glow-red-facebook:hover::before {
+  background: linear-gradient(135deg, #ff3b30 0%, #1877f2 100%) !important;
+}
+
+.hover-glow-red-soundcloud:hover {
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.35), 0 15px 35px rgba(255, 85, 0, 0.15), 0 15px 45px rgba(255, 59, 48, 0.2) !important;
+}
+.hover-glow-red-soundcloud:hover::before {
+  background: linear-gradient(135deg, #ff3b30 0%, #ff5500 100%) !important;
+}
+
+.hover-glow-red-youtube:hover {
+  box-shadow: inset 0 1px 1px rgba(255, 59, 48, 0.35), 0 15px 35px rgba(255, 0, 0, 0.3) !important;
+}
+.hover-glow-red-youtube:hover::before {
+  background: linear-gradient(135deg, #ff3b30 0%, #ff0000 100%) !important;
+}
+
+/* --- ANIMATIONS & KEYFRAMES --- */
+
+/* Text Outline Style (Restored original gorgeous styling for Page 1 & 2) */
+.text-outline-red {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 59, 48, 0.2);
+  text-stroke: 1.5px rgba(255, 59, 48, 0.2);
+  transition: -webkit-text-stroke 0.5s ease, text-stroke 0.5s ease;
+}
+.text-outline-red-active {
+  -webkit-text-stroke: 1.5px rgba(255, 59, 48, 0.7);
+  text-stroke: 1.5px rgba(255, 59, 48, 0.7);
+  filter: drop-shadow(0 0 8px rgba(255, 59, 48, 0.5));
+}
+
+/* Dedicated Subtle Text Outline specifically for Page 3 solid black background */
+.text-outline-red-darkbg {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 59, 48, 0.1);
+  text-stroke: 1.5px rgba(255, 59, 48, 0.1);
+  transition: -webkit-text-stroke 0.5s ease, text-stroke 0.5s ease;
+}
+.text-outline-red-darkbg-active {
+  -webkit-text-stroke: 1.5px rgba(255, 59, 48, 0.35);
+  text-stroke: 1.5px rgba(255, 59, 48, 0.35);
+  filter: drop-shadow(0 0 10px rgba(255, 59, 48, 0.25));
+}
+
+/* Blur Fade Up (Text & UI entrance) */
+@keyframes blurFadeUp {
+  from {
+    opacity: 0;
+    filter: blur(15px);
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate-blur-fade-up {
+  opacity: 0;
+  animation: blurFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Figurine Idle Bobbing Float */
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.5deg);
+  }
+}
+
+.animate-bobbing {
+  animation: bobbing 5s ease-in-out infinite;
+}
+
+/* Pulses double glow for scroll indicators */
+@keyframes doublePulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(5px);
+  }
+}
+
+.animate-double-pulse {
+  animation: doublePulse 2.2s infinite ease-in-out;
+}
+
+/* Audio visualizer bar animations */
+@keyframes audioBar1 {
+  0%, 100% { height: 3px; }
+  50% { height: 12px; }
+}
+@keyframes audioBar2 {
+  0%, 100% { height: 12px; }
+  50% { height: 4px; }
+}
+@keyframes audioBar3 {
+  0%, 100% { height: 5px; }
+  50% { height: 10px; }
+}
+
+.animate-audio-bar-1 {
+  animation: audioBar1 0.8s ease-in-out infinite;
+}
+.animate-audio-bar-2 {
+  animation: audioBar2 0.7s ease-in-out infinite;
+}
+.animate-audio-bar-3 {
+  animation: audioBar3 0.9s ease-in-out infinite;
+}
