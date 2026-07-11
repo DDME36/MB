@@ -374,14 +374,7 @@ export default function App() {
       <header>
         <a className="brand" href="#top" onClick={(e) => { e.preventDefault(); navigateToPage(0); }}>
           <span className="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 40 40" fill="none">
-              <defs><linearGradient id="brandGlow" x1="7" y1="6" x2="33" y2="35" gradientUnits="userSpaceOnUse"><stop stopColor="#FFE1C2" /><stop offset=".55" stopColor="#FF765C" /><stop offset="1" stopColor="#A31E35" /></linearGradient></defs>
-              <circle cx="20" cy="20" r="15.5" stroke="url(#brandGlow)" />
-              <circle cx="20" cy="20" r="11.5" stroke="rgba(255,225,198,.22)" strokeWidth=".7" />
-              <path d="M10.8 25.6V14.1l4.1 6.3 4.1-6.3v11.5" stroke="url(#brandGlow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M21.6 14.1h3.4c3.9 0 4.2 5.1.4 5.6 4.5.4 3.8 5.9-.2 5.9h-3.6V14.1Z" stroke="url(#brandGlow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M31.2 9.5 34 6.7M8.8 30.5 6 33.3" stroke="#FFD07D" strokeWidth="1" strokeLinecap="round" />
-            </svg>
+            <img src="/assets/mightybit-crimson-mark.png" alt="" />
           </span>
           <span>MIGHTYBIT</span>
         </a>
