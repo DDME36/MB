@@ -22,3 +22,6 @@ Thumbs.db
 
 # Local assistant agents config
 .agents/
+
+# Astro cache
+.astro/

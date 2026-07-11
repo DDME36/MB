@@ -1,6 +1,5 @@
-import { StrictMode, useEffect, useState, useRef } from 'react'
-import { createRoot } from 'react-dom/client'
-import './style.css'
+import { useEffect, useState, useRef } from 'react'
+import '../style.css'
 
 const Icon = ({ name }) => {
   const icons = {
@@ -96,7 +95,7 @@ const routes = [
   ['04', 'NEXT EPISODE']
 ]
 
-function App() {
+export default function App() {
   const [currentPage, setCurrentPage] = useState(0)
   const [progress, setProgress] = useState(0)
   const [inTransition, setInTransition] = useState(false)
@@ -531,9 +530,3 @@ function App() {
     </main>
   )
 }
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
