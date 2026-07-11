@@ -3,18 +3,83 @@ import { createRoot } from 'react-dom/client'
 import './style.css'
 
 const Icon = ({ name }) => {
-  const paths = { 
-    arrow: <path d="M4 12h16m-7-7 7 7-7 7"/>, 
-    play: <path d="m9 6 7 6-7 6V6Z"/>, 
-    compass: <><circle cx="12" cy="12" r="9"/><path d="m15.4 8.6-2.1 4.7-4.7 2.1 2.1-4.7 4.7-2.1Z"/></>,
-    tiktok: <path d="M14 4c.4 3 2.1 5.1 5 5.3v3.1c-1.8.1-3.5-.4-5-1.4v5.7a5.5 5.5 0 1 1-4.8-5.5v3.1a2.5 2.5 0 1 0 1.8 2.4V4h3Z"/>,
-    youtube: <path d="M20.2 7.1a2.7 2.7 0 0 0-1.9-1.9C16.6 4.7 12 4.7 12 4.7s-4.6 0-6.3.5A2.7 2.7 0 0 0 3.8 7.1 28 28 0 0 0 3.3 12a28 28 0 0 0 .5 4.9 2.7 2.7 0 0 0 1.9 1.9c1.7.5 6.3.5 6.3.5s4.6 0 6.3-.5a2.7 2.7 0 0 0 1.9-1.9 28 28 0 0 0 .5-4.9ZM10.2 15.1V8.9l5.4 3.1-5.4 3.1Z"/>,
-    twitch: <path d="M5 3h16v12l-4 4h-4l-2 2H8v-2H5V3Zm3 3v10h4v2l2-2h3l2-2V6H8Zm5 2h2v4h-2V8Zm4 0h-2v4h2V8Z"/>,
-    instagram: <><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></>,
-    facebook: <path d="M14 8h3V4.5c-.5-.1-1.8-.2-3.3-.2-3.3 0-5.6 2-5.6 5.8v3.2H5v4h3.1V22H13v-4.7h3.8l.6-4H13v-2.8c0-1.2.3-2.5 2-2.5Z"/>,
-    soundcloud: <path d="M2.8 15.8h1.4v3.5H2.8v-3.5Zm2.7-2.1h1.4v5.6H5.5v-5.6Zm2.7-3h1.4v8.6H8.2v-8.6Zm2.7-1.8h1.4v10.4h-1.4V8.9Zm2.7-1.1h1.4v11.5H13.6V7.8Zm2.7 2.6a4.3 4.3 0 1 1 4.4 8.9h-3.2v-8.9h2.8Z"/>
+  const icons = {
+    arrow: {
+      type: 'stroke',
+      content: <path d="M4 12h16m-7-7 7 7-7 7" />
+    },
+
+    play: {
+      type: 'stroke',
+      content: <path d="m9 6 7 6-7 6V6Z" />
+    },
+
+    compass: {
+      type: 'stroke',
+      content: (
+        <>
+          <circle cx="12" cy="12" r="9" />
+          <path d="m15.4 8.6-2.1 4.7-4.7 2.1 2.1-4.7 4.7-2.1Z" />
+        </>
+      )
+    },
+
+    tiktok: {
+      type: 'fill',
+      content: (
+        <path d="M15.6 3c.3 2.4 1.7 4.1 4.4 4.4v3.3a8.4 8.4 0 0 1-4.4-1.3v6.1A5.6 5.6 0 1 1 10.7 10v3.4a2.4 2.4 0 1 0 1.6 2.3V3h3.3Z" />
+      )
+    },
+
+    youtube: {
+      type: 'fill',
+      content: (
+        <path d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8ZM10 15.4V8.6l5.9 3.4-5.9 3.4Z" />
+      )
+    },
+
+    facebook: {
+      type: 'fill',
+      content: (
+        <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.03 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.96h-1.51c-1.49 0-1.96.93-1.96 1.89v2.27h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z" />
+      )
+    },
+
+    soundcloud: {
+      type: 'fill',
+      content: (
+        <>
+          <rect x="1" y="13.6" width="1.2" height="3.1" rx=".6" />
+          <rect x="3.1" y="12.2" width="1.2" height="5.7" rx=".6" />
+          <rect x="5.2" y="10.7" width="1.2" height="8.2" rx=".6" />
+          <rect x="7.3" y="9.7" width="1.2" height="9.8" rx=".6" />
+          <rect x="9.4" y="8.8" width="1.2" height="10.7" rx=".6" />
+          <path d="M11.7 19.5V8.1a6.2 6.2 0 0 1 10.7 4.2 3.7 3.7 0 0 1-1.9 7.2h-8.8Z" />
+        </>
+      )
+    }
   }
-  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>
+
+  const icon = icons[name]
+
+  if (!icon) return null
+
+  const isFilled = icon.type === 'fill'
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill={isFilled ? 'currentColor' : 'none'}
+      stroke={isFilled ? 'none' : 'currentColor'}
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {icon.content}
+    </svg>
+  )
 }
 
 const portals = [
@@ -368,7 +433,7 @@ function App() {
             
             {/* Panel 1 */}
             <article style={panelStyle(0)} className="story-panel panel-call">
-              <div className="panel-word">CALLING</div>
+              <div className="panel-word">CALLING<br />ME</div>
               <div className="panel-copy">
                 <p className="kicker">THE CHAOTIC REBEL</p>
                 <h2>เล่นไม่ชนะสักที<br /><em>เป็นที่เกมหรือเป็นที่กูว่ะ</em></h2>
@@ -436,9 +501,18 @@ function App() {
                 <p className="kicker">NEXT TRANSMISSION</p>
                 <h2>พร้อมหรือยัง<br /><em>ไปเล่นกัน</em></h2>
                 <p className="finale-lede">ไม่ว่าจะเข้ามาดูหนึ่งคลิป หรืออยู่ยาวจนจบด่าน<br />ทุกการกดเล่นคือจุดเริ่มของเรื่องราวใหม่</p>
-                <a className="start-button" href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                <a
+                  className="start-button"
+                  href="https://www.youtube.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="รับชมตอนล่าสุดบน YouTube"
+                >
                   <b><Icon name="play" /></b>
                 </a>
+                <span className="finale-cta-label">
+                  WATCH THE LATEST EPISODE
+                </span>
               </div>
             </article>
 
