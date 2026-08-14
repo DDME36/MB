@@ -1,6 +1,11 @@
 ---
 import App from '../components/App.jsx';
 import '../style.css';
+
+const siteTitle = "MIGHTYBIT — Beyond Sanity";
+const siteDescription = "ยินดีต้อนรับสู่โลกของ MIGHTYBIT — คอนเทนต์เกมและเรื่องราวที่ไม่เหมือนใคร ติดตามคลิปสั้น คลิปยาว และเรื่องราวล่าสุดได้ที่นี่";
+const siteUrl = "https://mightybit.vercel.app/";
+const ogImageUrl = `${siteUrl}assets/mightybit-main.png`;
 ---
 
 <!doctype html>
@@ -9,8 +14,35 @@ import '../style.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#08090d" />
+
+    <!-- Primary Meta Tags -->
+    <title>{siteTitle}</title>
+    <meta name="title" content={siteTitle} />
+    <meta name="description" content={siteDescription} />
+    <meta name="keywords" content="MIGHTYBIT, Gaming, Elden Ring, Content Creator, TikTok, Facebook, YouTube, SoundCloud, Thailand" />
+    <meta name="author" content="MIGHTYBIT" />
+    <link rel="canonical" href={siteUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <title>MIGHTYBIT</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="MIGHTYBIT" />
+    <meta property="og:locale" content="th_TH" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={siteTitle} />
+    <meta property="twitter:description" content={siteDescription} />
+    <meta property="twitter:image" content={ogImageUrl} />
+
+    <!-- Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <App client:load />

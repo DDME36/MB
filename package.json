@@ -7,13 +7,19 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/react": "latest",
-    "astro": "latest",
-    "react": "latest",
-    "react-dom": "latest"
+    "@astrojs/react": "^6.0.1",
+    "astro": "^7.0.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "typescript": "^5.7.3"
+  }
 }
