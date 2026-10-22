@@ -2,7 +2,7 @@
 
 A high-performance, interactive cinematic web portal and link hub for **MIGHTYBIT**. Built with Astro 7, React 19, Vanilla CSS, and Web Audio API.
 
-![MIGHTYBIT Preview](/assets/mightybit-main.png)
+![MIGHTYBIT Preview](public/assets/mightybit-og.jpg)
 
 ## ⚡ Tech Stack
 
@@ -26,8 +26,8 @@ A high-performance, interactive cinematic web portal and link hub for **MIGHTYBI
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/MB-main.git
-cd MB-main
+git clone https://github.com/ddme36/mb.git
+cd mb
 npm install
 ```
 
@@ -61,10 +61,11 @@ MB-main/
 ├── public/
 │   ├── assets/
 │   │   ├── Sound.mp3                       # Web Audio ambient soundtrack
-│   │   ├── mightybit-crimson-mark.png      # Brand avatar logo mark
-│   │   ├── mightybit-main.png              # Hero & Main key visual
-│   │   ├── mightybit-world.png             # Chapter background scene
-│   │   └── mightybit-chaos-illustrated.png # Chapter 01 portrait illustration
+│   │   ├── mightybit-crimson-mark.webp     # Brand avatar logo mark
+│   │   ├── mightybit-main.webp             # Hero & Main key visual
+│   │   ├── mightybit-og.jpg                # Social share image (1200×630)
+│   │   ├── mightybit-world.webp            # Chapter background scene
+│   │   └── mightybit-chaos-illustrated.webp # Chapter 01 portrait illustration
 │   └── favicon.svg                         # Favicon
 ├── src/
 │   ├── components/

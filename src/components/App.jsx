@@ -260,8 +260,7 @@ export default function App() {
       shockwaveTriggerRef.current()
     }
 
-    const nextProgress = pageNumber === 0 ? 0 : (pageNumber - 1) * 33.3333
-    setProgress(nextProgress)
+    setProgress(pageNumber * 25)
 
     setTimeout(() => {
       setInTransition(false)
@@ -578,7 +577,7 @@ export default function App() {
       <header>
         <a className="brand" href="#top" onClick={(e) => { e.preventDefault(); navigateToPage(0); }}>
           <span className="brand-mark" aria-hidden="true">
-            <img src="/assets/mightybit-crimson-mark.png" alt="MIGHTYBIT Logo" />
+            <img src="/assets/mightybit-crimson-mark.webp" alt="MIGHTYBIT Logo" />
           </span>
           <span>MIGHTYBIT</span>
         </a>
@@ -715,9 +714,6 @@ export default function App() {
                 <h2 className="finale-title">พร้อมหรือยัง<br /><em>ไปเล่นกัน</em></h2>
                 <p className="finale-lede">ไม่ว่าจะเข้ามาดูหนึ่งคลิป หรืออยู่ยาวจนจบด่าน<br />ทุกการกดเล่นคือจุดเริ่มของเรื่องราวใหม่</p>
                 <div className="supernova-pulse" aria-hidden="true" />
-                <div className="play-pulse-ring ring-1" aria-hidden="true" />
-                <div className="play-pulse-ring ring-2" aria-hidden="true" />
-                <div className="play-pulse-ring ring-3" aria-hidden="true" />
                 <a
                   className="start-button"
                   href="https://www.youtube.com/@mightybit"
@@ -725,10 +721,13 @@ export default function App() {
                   rel="noreferrer"
                   aria-label="รับชมตอนล่าสุดบน YouTube"
                 >
+                  <span className="play-pulse-ring ring-1" aria-hidden="true" />
+                  <span className="play-pulse-ring ring-2" aria-hidden="true" />
+                  <span className="play-pulse-ring ring-3" aria-hidden="true" />
                   <b><Icon name="play" /></b>
                 </a>
                 <span className="finale-cta-label">
-                  WATCH THE LATEST EPISODE
+                  ดูคลิปล่าสุด <small>WATCH THE LATEST EPISODE</small>
                 </span>
               </div>
             </article>
