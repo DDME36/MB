@@ -100,6 +100,9 @@ export default function App() {
   const [progress, setProgress] = useState(0)
   const [inTransition, setInTransition] = useState(false)
   const isScrollingRef = useRef(false)
+  // Trackpads keep firing inertia wheel events for a second or more after the
+  // finger lifts; stay locked until that stream goes quiet so one swipe = one page
+  const wheelGestureRef = useRef({ locked: false, timer: null })
   
   // Cinematic states
   const [audioActive, setAudioActive] = useState(false)
@@ -418,49 +421,75 @@ export default function App() {
     }
   }, [])
 
-  // 4. Wheel and Touch event listener for full page navigation
+  // 4. Wheel, Touch and Keyboard listeners for full page navigation
   useEffect(() => {
-    const handleWheel = (e) => {
-      e.preventDefault()
-      if (isScrollingRef.current) return
-
-      const direction = e.deltaY > 0 ? 1 : -1
+    const step = (direction) => {
       const nextPage = Math.max(0, Math.min(4, currentPage + direction))
+      if (nextPage !== currentPage) navigateToPage(nextPage)
+    }
 
-      if (nextPage !== currentPage) {
-        navigateToPage(nextPage)
-      }
+    const handleWheel = (e) => {
+      if (e.ctrlKey) return // pinch-zoom on trackpads
+      e.preventDefault()
+
+      const gesture = wheelGestureRef.current
+      clearTimeout(gesture.timer)
+      gesture.timer = setTimeout(() => { gesture.locked = false }, 180)
+
+      if (gesture.locked || isScrollingRef.current || Math.abs(e.deltaY) < 4) return
+
+      gesture.locked = true
+      step(e.deltaY > 0 ? 1 : -1)
     }
 
     let startY = 0
+    let swipeHandled = false
     const handleTouchStart = (e) => {
       startY = e.touches[0].clientY
+      swipeHandled = false
     }
 
     const handleTouchMove = (e) => {
-      if (isScrollingRef.current) return
-      
-      const currentY = e.touches[0].clientY
-      const diffY = startY - currentY
+      if (swipeHandled || isScrollingRef.current) return
 
+      const diffY = startY - e.touches[0].clientY
       if (Math.abs(diffY) > 50) {
-        const direction = diffY > 0 ? 1 : -1
-        const nextPage = Math.max(0, Math.min(4, currentPage + direction))
+        swipeHandled = true
+        step(diffY > 0 ? 1 : -1)
+      }
+    }
 
-        if (nextPage !== currentPage) {
-          navigateToPage(nextPage)
-        }
+    const handleKeyDown = (e) => {
+      if (e.altKey || e.ctrlKey || e.metaKey) return
+      const tag = e.target.tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable) return
+      // Let Space/Enter activate a focused link or button as usual
+      if (e.key === ' ' && (tag === 'A' || tag === 'BUTTON')) return
+
+      const keyMap = {
+        ArrowDown: 1, ArrowRight: 1, PageDown: 1, ' ': e.shiftKey ? -1 : 1,
+        ArrowUp: -1, ArrowLeft: -1, PageUp: -1
+      }
+
+      if (e.key === 'Home' || e.key === 'End') {
+        e.preventDefault()
+        navigateToPage(e.key === 'Home' ? 0 : 4)
+      } else if (e.key in keyMap) {
+        e.preventDefault()
+        if (!e.repeat) step(keyMap[e.key])
       }
     }
 
     window.addEventListener('wheel', handleWheel, { passive: false })
     window.addEventListener('touchstart', handleTouchStart, { passive: true })
     window.addEventListener('touchmove', handleTouchMove, { passive: false })
+    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [currentPage, audioActive])
 
